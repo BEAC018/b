@@ -1,0 +1,163 @@
+{% extends 'base.html' %}
+
+{% block title %}الصفحة الرئيسية - منصة المسابقات الرياضية{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="col-12">
+        <div class="card mb-4">
+            <div class="card-body text-center">
+                <h1 class="card-title">
+                    <i class="fas fa-calculator text-primary me-3"></i>
+                    مرحباً بكم في منصة المسابقات الرياضية
+                </h1>
+                <p class="card-text lead">منصة تفاعلية لإجراء مسابقات الرياضيات للطلاب</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-3 col-sm-6 mb-4">
+        <div class="stats-card text-center">
+            <h3>{{ total_sessions }}</h3>
+            <p><i class="fas fa-users me-2"></i>إجمالي الطلاب</p>
+        </div>
+    </div>
+    
+    <div class="col-md-3 col-sm-6 mb-4">
+        <div class="stats-card text-center">
+            <h3>{{ completed_sessions }}</h3>
+            <p><i class="fas fa-check-circle me-2"></i>المسابقات المكتملة</p>
+        </div>
+    </div>
+    
+    <div class="col-md-3 col-sm-6 mb-4">
+        <div class="stats-card text-center">
+            <h3>{{ total_questions }}</h3>
+            <p><i class="fas fa-question-circle me-2"></i>إجمالي الأسئلة</p>
+        </div>
+    </div>
+    
+    <div class="col-md-3 col-sm-6 mb-4">
+        <div class="stats-card text-center">
+            <h3>{% widthratio completed_sessions total_sessions 100 %}%</h3>
+            <p><i class="fas fa-chart-pie me-2"></i>معدل الإكمال</p>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-6 mb-4">
+        <div class="card">
+            <div class="card-header">
+                <h5><i class="fas fa-play-circle me-2"></i>بدء مسابقة جديدة</h5>
+            </div>
+            <div class="card-body text-center">
+                <p>للطلاب: ابدأ مسابقة رياضيات جديدة</p>
+                <a href="{% url 'student_login' %}" class="btn btn-primary btn-lg">
+                    <i class="fas fa-user-graduate me-2"></i>دخول الطلاب
+                </a>
+            </div>
+        </div>
+    </div>
+    
+    <div class="col-md-6 mb-4">
+        <div class="card">
+            <div class="card-header">
+                <h5><i class="fas fa-chalkboard-teacher me-2"></i>لوحة المعلم</h5>
+            </div>
+            <div class="card-body text-center">
+                <p>للمعلمين: عرض النتائج والإحصائيات</p>
+                {% if user.is_authenticated %}
+                    <a href="{% url 'teacher_dashboard' %}" class="btn btn-primary btn-lg">
+                        <i class="fas fa-chart-bar me-2"></i>لوحة التحكم
+                    </a>
+                {% else %}
+                    <a href="{% url 'login' %}" class="btn btn-primary btn-lg">
+                        <i class="fas fa-sign-in-alt me-2"></i>تسجيل الدخول
+                    </a>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+
+{% if recent_sessions %}
+<div class="row">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-header">
+                <h5><i class="fas fa-clock me-2"></i>أحدث الجلسات</h5>
+            </div>
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th>اسم الطالب</th>
+                                <th>الصف</th>
+                                <th>النتيجة</th>
+                                <th>الحالة</th>
+                                <th>وقت البداية</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for session in recent_sessions %}
+                            <tr>
+                                <td>{{ session.student_name }}</td>
+                                <td>{{ session.grade }}</td>
+                                <td>
+                                    {% if session.is_completed %}
+                                        <span class="badge bg-success">{{ session.score|floatformat:1 }}%</span>
+                                    {% else %}
+                                        <span class="badge bg-warning">جاري</span>
+                                    {% endif %}
+                                </td>
+                                <td>
+                                    {% if session.is_completed %}
+                                        <i class="fas fa-check-circle text-success"></i> مكتملة
+                                    {% else %}
+                                        <i class="fas fa-clock text-warning"></i> جارية
+                                    {% endif %}
+                                </td>
+                                <td>{{ session.start_time|date:"Y-m-d H:i" }}</td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endif %}
+
+<div class="row mt-4">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-body text-center">
+                <h5>مميزات المنصة</h5>
+                <div class="row">
+                    <div class="col-md-3 col-sm-6 mb-3">
+                        <i class="fas fa-random fa-2x text-primary mb-2"></i>
+                        <p>أسئلة عشوائية</p>
+                    </div>
+                    <div class="col-md-3 col-sm-6 mb-3">
+                        <i class="fas fa-stopwatch fa-2x text-primary mb-2"></i>
+                        <p>توقيت الإجابات</p>
+                    </div>
+                    <div class="col-md-3 col-sm-6 mb-3">
+                        <i class="fas fa-chart-line fa-2x text-primary mb-2"></i>
+                        <p>تتبع التقدم</p>
+                    </div>
+                    <div class="col-md-3 col-sm-6 mb-3">
+                        <i class="fas fa-medal fa-2x text-primary mb-2"></i>
+                        <p>نتائج فورية</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

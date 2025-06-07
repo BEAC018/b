@@ -1,65 +1,112 @@
-from django.shortcuts import render
-from django.http import HttpResponse
+from django.shortcuts import render, redirect
+from django.contrib.auth.decorators import login_required
+from django.http import JsonResponse
+from django.db.models import Count, Avg
+from competitions.models import StudentSession, StudentResponse, MathQuestion
+from accounts.models import Profile
+import json
 
 def dashboard_home(request):
-    return HttpResponse("""
-    <html dir="rtl">
-    <head>
-        <meta charset="UTF-8">
-        <title>منصة المسابقات الرياضية</title>
-        <style>
-            body { font-family: Arial, sans-serif; text-align: center; padding: 50px; }
-            h1 { color: #4CAF50; }
-            .links { margin: 30px 0; }
-            .links a { 
-                display: inline-block; 
-                margin: 10px; 
-                padding: 15px 30px; 
-                background: #4CAF50; 
-                color: white; 
-                text-decoration: none; 
-                border-radius: 5px; 
-            }
-        </style>
-    </head>
-    <body>
-        <h1>🎓 منصة المسابقات الرياضية</h1>
-        <p>مرحباً بكم في منصة المسابقات الرياضية التفاعلية</p>
-        <div class="links">
-            <a href="/admin/">لوحة الإدارة</a>
-            <a href="/accounts/login/">تسجيل دخول المعلمين</a>
-            <a href="/student/login/">دخول الطلاب</a>
-            <a href="/competitions/">المسابقات</a>
-        </div>
-        <p>✅ التطبيق يعمل بنجاح!</p>
-    </body>
-    </html>
-    """)
+    """الصفحة الرئيسية للوحة التحكم"""
+    # إحصائيات عامة
+    total_sessions = StudentSession.objects.count()
+    completed_sessions = StudentSession.objects.filter(is_completed=True).count()
+    total_questions = MathQuestion.objects.count()
+    
+    # أحدث الجلسات
+    recent_sessions = StudentSession.objects.order_by('-start_time')[:5]
+    
+    context = {
+        'total_sessions': total_sessions,
+        'completed_sessions': completed_sessions,
+        'total_questions': total_questions,
+        'recent_sessions': recent_sessions,
+    }
+    
+    return render(request, 'dashboard/home.html', context)
 
 def student_login(request):
-    return HttpResponse("""
-    <html dir="rtl">
-    <head>
-        <meta charset="UTF-8">
-        <title>دخول الطلاب</title>
-        <style>
-            body { font-family: Arial, sans-serif; text-align: center; padding: 50px; }
-            h1 { color: #4CAF50; }
-            .form { max-width: 400px; margin: 0 auto; }
-            input { padding: 10px; margin: 10px; width: 200px; }
-            button { padding: 10px 20px; background: #4CAF50; color: white; border: none; border-radius: 5px; }
-        </style>
-    </head>
-    <body>
-        <h1>👥 دخول الطلاب</h1>
-        <div class="form">
-            <p>أدخل رمز الدخول:</p>
-            <input type="text" placeholder="رمز الدخول" />
-            <br>
-            <button>دخول</button>
-            <p><small>الرمز الافتراضي: ben25</small></p>
-        </div>
-        <a href="/">العودة للرئيسية</a>
-    </body>
-    </html>
-    """)
+    """إعادة توجيه لصفحة دخول الطلاب"""
+    return redirect('student_login')
+
+@login_required
+def statistics_view(request):
+    """عرض الإحصائيات"""
+    # إحصائيات الجلسات
+    sessions_by_grade = StudentSession.objects.values('grade').annotate(
+        count=Count('id'),
+        avg_score=Avg('score')
+    ).order_by('grade')
+    
+    # إحصائيات الأسئلة
+    questions_by_operation = MathQuestion.objects.values('operation').annotate(
+        count=Count('id')
+    ).order_by('operation')
+    
+    # أفضل النتائج
+    top_sessions = StudentSession.objects.filter(
+        is_completed=True
+    ).order_by('-score')[:10]
+    
+    context = {
+        'sessions_by_grade': sessions_by_grade,
+        'questions_by_operation': questions_by_operation,
+        'top_sessions': top_sessions,
+    }
+    
+    return render(request, 'dashboard/statistics.html', context)
+
+@login_required
+def export_data(request):
+    """تصدير البيانات"""
+    if request.method == 'POST':
+        export_type = request.POST.get('export_type')
+        
+        if export_type == 'sessions':
+            sessions = StudentSession.objects.filter(is_completed=True)
+            data = []
+            for session in sessions:
+                data.append({
+                    'student_name': session.student_name,
+                    'grade': session.grade,
+                    'score': session.score,
+                    'correct_answers': session.correct_answers,
+                    'total_questions': session.total_questions,
+                    'start_time': session.start_time.isoformat(),
+                    'end_time': session.end_time.isoformat() if session.end_time else None,
+                })
+            
+            return JsonResponse({
+                'success': True,
+                'data': data,
+                'filename': 'student_sessions.json'
+            })
+    
+    return render(request, 'dashboard/export.html')
+
+def reports_view(request):
+    """عرض التقارير"""
+    # تقرير الأداء العام
+    total_students = StudentSession.objects.count()
+    completed_students = StudentSession.objects.filter(is_completed=True).count()
+    average_score = StudentSession.objects.filter(
+        is_completed=True
+    ).aggregate(avg_score=Avg('score'))['avg_score'] or 0
+    
+    # تقرير الصفوف
+    grades_performance = StudentSession.objects.filter(
+        is_completed=True
+    ).values('grade').annotate(
+        student_count=Count('id'),
+        avg_score=Avg('score'),
+        total_correct=Count('correct_answers')
+    ).order_by('grade')
+    
+    context = {
+        'total_students': total_students,
+        'completed_students': completed_students,
+        'average_score': round(average_score, 2),
+        'grades_performance': grades_performance,
+    }
+    
+    return render(request, 'dashboard/reports.html', context)

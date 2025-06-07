@@ -1,0 +1,109 @@
+{% extends 'base.html' %}
+
+{% block title %}دخول الطلاب - منصة المسابقات الرياضية{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-md-6 col-lg-5">
+        <div class="card">
+            <div class="card-header text-center">
+                <h4><i class="fas fa-user-graduate me-2"></i>دخول الطلاب</h4>
+                <p class="mb-0 text-muted">أدخل بياناتك لبدء المسابقة</p>
+            </div>
+            <div class="card-body">
+                <form method="post">
+                    {% csrf_token %}
+                    
+                    <div class="mb-3">
+                        <label for="student_name" class="form-label">
+                            <i class="fas fa-user me-2"></i>اسم الطالب
+                        </label>
+                        <input type="text" class="form-control" id="student_name" name="student_name" 
+                               placeholder="أدخل اسمك الكامل" required>
+                    </div>
+                    
+                    <div class="mb-3">
+                        <label for="grade" class="form-label">
+                            <i class="fas fa-graduation-cap me-2"></i>الصف
+                        </label>
+                        <select class="form-select" id="grade" name="grade" required>
+                            <option value="">اختر الصف</option>
+                            <option value="الأول الابتدائي">الأول الابتدائي</option>
+                            <option value="الثاني الابتدائي">الثاني الابتدائي</option>
+                            <option value="الثالث الابتدائي">الثالث الابتدائي</option>
+                            <option value="الرابع الابتدائي">الرابع الابتدائي</option>
+                            <option value="الخامس الابتدائي">الخامس الابتدائي</option>
+                            <option value="السادس الابتدائي">السادس الابتدائي</option>
+                            <option value="الأول المتوسط">الأول المتوسط</option>
+                            <option value="الثاني المتوسط">الثاني المتوسط</option>
+                            <option value="الثالث المتوسط">الثالث المتوسط</option>
+                            <option value="الأول الثانوي">الأول الثانوي</option>
+                            <option value="الثاني الثانوي">الثاني الثانوي</option>
+                            <option value="الثالث الثانوي">الثالث الثانوي</option>
+                        </select>
+                    </div>
+                    
+                    <div class="mb-3">
+                        <label for="access_code" class="form-label">
+                            <i class="fas fa-key me-2"></i>رمز الدخول
+                        </label>
+                        <input type="text" class="form-control" id="access_code" name="access_code" 
+                               placeholder="أدخل رمز الدخول" required>
+                        <div class="form-text">
+                            <i class="fas fa-info-circle me-1"></i>
+                            اطلب رمز الدخول من معلمك
+                        </div>
+                    </div>
+                    
+                    <div class="d-grid">
+                        <button type="submit" class="btn btn-primary btn-lg">
+                            <i class="fas fa-play me-2"></i>بدء المسابقة
+                        </button>
+                    </div>
+                </form>
+            </div>
+            
+            <div class="card-footer text-center">
+                <small class="text-muted">
+                    <i class="fas fa-shield-alt me-1"></i>
+                    بياناتك آمنة ومحمية
+                </small>
+            </div>
+        </div>
+        
+        <div class="card mt-4">
+            <div class="card-body">
+                <h6><i class="fas fa-lightbulb me-2"></i>نصائح للمسابقة:</h6>
+                <ul class="list-unstyled">
+                    <li><i class="fas fa-check text-success me-2"></i>تأكد من اتصال الإنترنت</li>
+                    <li><i class="fas fa-check text-success me-2"></i>اقرأ السؤال بعناية</li>
+                    <li><i class="fas fa-check text-success me-2"></i>لا تتردد في المحاولة</li>
+                    <li><i class="fas fa-check text-success me-2"></i>استمتع بالتعلم!</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+.card {
+    animation: fadeInUp 0.6s ease-out;
+}
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.form-control:focus, .form-select:focus {
+    border-color: #4CAF50;
+    box-shadow: 0 0 0 0.2rem rgba(76, 175, 80, 0.25);
+}
+</style>
+{% endblock %}
