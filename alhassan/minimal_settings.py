@@ -1,5 +1,5 @@
 """
-إعدادات الإنتاج المبسطة
+إعدادات مبسطة جداً للنشر السريع
 """
 
 import os
@@ -9,19 +9,14 @@ from pathlib import Path
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = os.environ.get('SECRET_KEY', 'django-insecure-production-key-change-me')
+SECRET_KEY = os.environ.get('SECRET_KEY', 'django-insecure-minimal-key-for-testing')
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-ALLOWED_HOSTS = [
-    '.onrender.com',
-    'localhost',
-    '127.0.0.1',
-    '*',
-]
+ALLOWED_HOSTS = ['*']
 
-# Application definition
+# Application definition - الحد الأدنى فقط
 INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
@@ -30,9 +25,6 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'whitenoise.runserver_nostatic',
-    'accounts',
-    'competitions',
-    'dashboard',
 ]
 
 MIDDLEWARE = [
@@ -51,7 +43,7 @@ ROOT_URLCONF = 'alhassan.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [BASE_DIR / 'templates'],
+        'DIRS': [],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -91,17 +83,8 @@ STATICFILES_DIRS = []
 # WhiteNoise configuration
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedStaticFilesStorage'
 
-# Media files
-MEDIA_URL = '/media/'
-MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
-
 # Default primary key field type
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
-
-# CSRF settings
-CSRF_TRUSTED_ORIGINS = [
-    'https://*.onrender.com',
-]
 
 # Student access code
 STUDENT_ACCESS_CODE = os.environ.get('STUDENT_ACCESS_CODE', 'ben25')

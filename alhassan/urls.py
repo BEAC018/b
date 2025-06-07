@@ -3,7 +3,7 @@ URL configuration for alhassan project.
 إعدادات الروابط لمشروع الحسن
 """
 from django.contrib import admin
-from django.urls import path, include
+from django.urls import path
 from django.conf import settings
 from django.conf.urls.static import static
 from django.http import HttpResponse
@@ -29,10 +29,10 @@ def home_view(request):
             <h1>🎓 منصة المسابقات الرياضية</h1>
             <p>مرحباً بكم في منصة المسابقات الرياضية التفاعلية</p>
             <div>
-                <a href="/dashboard/" class="btn">🏠 الصفحة الرئيسية</a>
-                <a href="/competitions/student/login/" class="btn">👥 دخول الطلاب</a>
-                <a href="/accounts/login/" class="btn">👨‍🏫 دخول المعلمين</a>
                 <a href="/admin/" class="btn">⚙️ لوحة الإدارة</a>
+                <a href="#" class="btn" onclick="alert('قريباً: دخول الطلاب')">👥 دخول الطلاب</a>
+                <a href="#" class="btn" onclick="alert('قريباً: دخول المعلمين')">👨‍🏫 دخول المعلمين</a>
+                <a href="#" class="btn" onclick="alert('قريباً: المسابقات')">🏆 المسابقات</a>
             </div>
             <p style="margin-top: 30px; color: #666;">✅ التطبيق يعمل بنجاح!</p>
         </div>
@@ -40,21 +40,14 @@ def home_view(request):
     </html>
     """)
 
-try:
-    urlpatterns = [
-        path('admin/', admin.site.urls),
-        path('', home_view, name='home'),
-        path('accounts/', include('accounts.urls')),
-        path('competitions/', include('competitions.urls')),
-        path('dashboard/', include('dashboard.urls')),
-        path('student/', include('dashboard.urls')),  # للطلاب
-    ]
-except Exception as e:
-    # في حالة وجود خطأ، استخدم روابط بسيطة
-    urlpatterns = [
-        path('admin/', admin.site.urls),
-        path('', home_view, name='home'),
-    ]
+# روابط بسيطة وآمنة
+urlpatterns = [
+    path('admin/', admin.site.urls),
+    path('', home_view, name='home'),
+]
+
+# ملاحظة: التطبيقات المخصصة معطلة مؤقتاً لحل خطأ 500
+# سيتم تفعيلها لاحقاً بعد إصلاح المشاكل
 
 # إضافة ملفات الوسائط
 if settings.DEBUG:
