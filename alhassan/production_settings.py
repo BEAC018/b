@@ -1,6 +1,5 @@
 """
-Simple settings for Render deployment
-إعدادات مبسطة للنشر على Render
+إعدادات الإنتاج المبسطة
 """
 
 import os
@@ -10,17 +9,16 @@ from pathlib import Path
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = os.environ.get('SECRET_KEY', 'django-insecure-fallback-key-for-development')
+SECRET_KEY = os.environ.get('SECRET_KEY', 'django-insecure-production-key-change-me')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = os.environ.get('DEBUG', 'False').lower() == 'true'
+DEBUG = False
 
 ALLOWED_HOSTS = [
     '.onrender.com',
     'localhost',
     '127.0.0.1',
-    '0.0.0.0',
-    '*',  # للنشر السريع
+    '*',
 ]
 
 # Application definition
@@ -32,9 +30,6 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'whitenoise.runserver_nostatic',
-    'accounts',
-    'competitions',
-    'dashboard',
 ]
 
 MIDDLEWARE = [
@@ -68,7 +63,7 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'alhassan.wsgi.application'
 
-# Database - استخدام SQLite دائماً للبساطة
+# Database
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
@@ -77,20 +72,7 @@ DATABASES = {
 }
 
 # Password validation
-AUTH_PASSWORD_VALIDATORS = [
-    {
-        'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator',
-    },
-    {
-        'NAME': 'django.contrib.auth.password_validation.MinimumLengthValidator',
-    },
-    {
-        'NAME': 'django.contrib.auth.password_validation.CommonPasswordValidator',
-    },
-    {
-        'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
-    },
-]
+AUTH_PASSWORD_VALIDATORS = []
 
 # Internationalization
 LANGUAGE_CODE = 'ar'
@@ -101,8 +83,6 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
-
-# تبسيط إعدادات الملفات الثابتة
 STATICFILES_DIRS = []
 
 # WhiteNoise configuration
@@ -115,22 +95,15 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 # Default primary key field type
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-# Security settings - مبسطة للنشر السريع
-if not DEBUG:
-    SECURE_BROWSER_XSS_FILTER = True
-    SECURE_CONTENT_TYPE_NOSNIFF = True
-    X_FRAME_OPTIONS = 'DENY'
-
 # CSRF settings
 CSRF_TRUSTED_ORIGINS = [
     'https://*.onrender.com',
-    'https://*.serveo.net',
 ]
 
 # Student access code
 STUDENT_ACCESS_CODE = os.environ.get('STUDENT_ACCESS_CODE', 'ben25')
 
-# Logging - مبسط
+# Logging
 LOGGING = {
     'version': 1,
     'disable_existing_loggers': False,
