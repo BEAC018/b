@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>دليل النشر الدائم - منصة المسابقات الرياضية</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+            color: #333;
+        }
+        
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            overflow: hidden;
+        }
+        
+        .header {
+            background: linear-gradient(135deg, #4CAF50 0%, #45a049 100%);
+            color: white;
+            padding: 30px;
+            text-align: center;
+        }
+        
+        .header h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+        
+        .header p {
+            font-size: 1.2em;
+            opacity: 0.9;
+        }
+        
+        .content {
+            padding: 40px;
+        }
+        
+        .step {
+            background: #f8f9fa;
+            border-radius: 15px;
+            padding: 25px;
+            margin-bottom: 25px;
+            border-right: 5px solid #4CAF50;
+            transition: transform 0.3s ease;
+        }
+        
+        .step:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+        }
+        
+        .step-number {
+            background: #4CAF50;
+            color: white;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            margin-left: 15px;
+            font-size: 1.2em;
+        }
+        
+        .step-title {
+            font-size: 1.4em;
+            font-weight: bold;
+            color: #2c3e50;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+        }
+        
+        .step-content {
+            line-height: 1.8;
+            color: #555;
+        }
+        
+        .code-block {
+            background: #2c3e50;
+            color: #ecf0f1;
+            padding: 15px;
+            border-radius: 8px;
+            font-family: 'Courier New', monospace;
+            margin: 10px 0;
+            overflow-x: auto;
+        }
+        
+        .highlight {
+            background: #fff3cd;
+            border: 1px solid #ffeaa7;
+            border-radius: 8px;
+            padding: 15px;
+            margin: 15px 0;
+        }
+        
+        .success {
+            background: #d4edda;
+            border: 1px solid #c3e6cb;
+            color: #155724;
+            border-radius: 8px;
+            padding: 20px;
+            margin: 20px 0;
+            text-align: center;
+            font-size: 1.1em;
+        }
+        
+        .warning {
+            background: #fff3cd;
+            border: 1px solid #ffeaa7;
+            color: #856404;
+            border-radius: 8px;
+            padding: 15px;
+            margin: 15px 0;
+        }
+        
+        .links-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin: 20px 0;
+        }
+        
+        .link-card {
+            background: #f8f9fa;
+            border: 2px solid #e9ecef;
+            border-radius: 10px;
+            padding: 20px;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+        
+        .link-card:hover {
+            border-color: #4CAF50;
+            transform: translateY(-3px);
+        }
+        
+        .link-card h3 {
+            color: #2c3e50;
+            margin-bottom: 10px;
+        }
+        
+        .link-card a {
+            color: #4CAF50;
+            text-decoration: none;
+            font-weight: bold;
+        }
+        
+        .emoji {
+            font-size: 1.5em;
+            margin-left: 10px;
+        }
+        
+        .footer {
+            background: #2c3e50;
+            color: white;
+            padding: 30px;
+            text-align: center;
+        }
+        
+        @media (max-width: 768px) {
+            .container {
+                margin: 10px;
+                border-radius: 10px;
+            }
+            
+            .content {
+                padding: 20px;
+            }
+            
+            .header h1 {
+                font-size: 2em;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🌐 دليل النشر الدائم</h1>
+            <p>مشاركة منصة المسابقات الرياضية مع العالم - مجاناً وإلى الأبد</p>
+        </div>
+        
+        <div class="content">
+            <div class="success">
+                <h2>🎯 الهدف: نشر التطبيق بشكل دائم ومجاني على الإنترنت</h2>
+                <p>بدون تغيير أو إضافة أو حذف أي شيء من التطبيق الحالي</p>
+            </div>
+            
+            <div class="step">
+                <div class="step-title">
+                    <span class="step-number">1</span>
+                    <span>🚀 إنشاء حساب Render</span>
+                </div>
+                <div class="step-content">
+                    <p>• اذهب إلى: <strong>https://render.com</strong></p>
+                    <p>• اضغط "Get Started for Free"</p>
+                    <p>• سجل باستخدام GitHub (الأسهل والأسرع)</p>
+                    <p>• مجاني 100% - 750 ساعة شهرياً</p>
+                </div>
+            </div>
+            
+            <div class="step">
+                <div class="step-title">
+                    <span class="step-number">2</span>
+                    <span>📁 رفع الكود إلى GitHub</span>
+                </div>
+                <div class="step-content">
+                    <p>• اذهب إلى: <strong>https://github.com/new</strong></p>
+                    <p>• اسم Repository: <strong>math-competition-platform</strong></p>
+                    <p>• اجعله Public (مهم للخطة المجانية)</p>
+                    <p>• ارفع جميع ملفات المشروع كما هي</p>
+                </div>
+            </div>
+            
+            <div class="step">
+                <div class="step-title">
+                    <span class="step-number">3</span>
+                    <span>🔗 ربط Render بـ GitHub</span>
+                </div>
+                <div class="step-content">
+                    <p>• في Render Dashboard: اضغط "New +"</p>
+                    <p>• اختر "Web Service"</p>
+                    <p>• اضغط "Connect a repository"</p>
+                    <p>• اختر المشروع من GitHub</p>
+                </div>
+            </div>
+            
+            <div class="step">
+                <div class="step-title">
+                    <span class="step-number">4</span>
+                    <span>⚙️ إعدادات الخدمة</span>
+                </div>
+                <div class="step-content">
+                    <div class="code-block">
+Name: math-competition-platform
+Environment: Python 3
+Region: Oregon (US West)
+Branch: main
+Build Command: pip install Django==5.2.1 gunicorn==21.2.0 whitenoise==6.6.0 && python manage.py migrate --noinput
+Start Command: gunicorn alhassan.wsgi:application --bind 0.0.0.0:$PORT --workers 1 --timeout 120
+                    </div>
+                </div>
+            </div>
+            
+            <div class="step">
+                <div class="step-title">
+                    <span class="step-number">5</span>
+                    <span>🔐 متغيرات البيئة</span>
+                </div>
+                <div class="step-content">
+                    <div class="code-block">
+DJANGO_SETTINGS_MODULE = alhassan.simple_settings
+DEBUG = False
+STUDENT_ACCESS_CODE = ben25
+SECRET_KEY = [سيتم إنشاؤها تلقائياً]
+PORT = 10000
+PYTHONPATH = .
+DISABLE_COLLECTSTATIC = 1
+                    </div>
+                </div>
+            </div>
+            
+            <div class="step">
+                <div class="step-title">
+                    <span class="step-number">6</span>
+                    <span>💾 قاعدة البيانات</span>
+                </div>
+                <div class="step-content">
+                    <p>• اضغط "New +" → "PostgreSQL"</p>
+                    <p>• Name: <strong>math-competition-db</strong></p>
+                    <p>• Plan: Free</p>
+                    <p>• سيتم ربطها تلقائياً</p>
+                </div>
+            </div>
+            
+            <div class="step">
+                <div class="step-title">
+                    <span class="step-number">7</span>
+                    <span>⏱️ انتظار النشر</span>
+                </div>
+                <div class="step-content">
+                    <p>• سيظهر "Building..." ثم "Live" (5-10 دقائق)</p>
+                    <p>• ستحصل على رابط مثل:</p>
+                    <div class="code-block">https://math-competition-platform.onrender.com</div>
+                </div>
+            </div>
+            
+            <div class="step">
+                <div class="step-title">
+                    <span class="step-number">8</span>
+                    <span>🔑 إنشاء مدير جديد</span>
+                </div>
+                <div class="step-content">
+                    <p>• في Render Dashboard → اختر الخدمة</p>
+                    <p>• اضغط "Shell" في الأعلى</p>
+                    <div class="code-block">python manage.py createsuperuser</div>
+                    <p>• أدخل البيانات المطلوبة</p>
+                </div>
+            </div>
+            
+            <div class="success">
+                <h2>🎉 النتيجة النهائية</h2>
+                <p><strong>تطبيق دائم ومجاني على الإنترنت!</strong></p>
+                <p>متاح للعالم كله 24/7! 🌟</p>
+            </div>
+            
+            <div class="highlight">
+                <h3>📋 روابط الوصول المباشر:</h3>
+                <div class="links-grid">
+                    <div class="link-card">
+                        <h3>🏠 الصفحة الرئيسية</h3>
+                        <a href="#">https://math-competition-platform.onrender.com/</a>
+                    </div>
+                    <div class="link-card">
+                        <h3>👨‍🏫 للمعلمين</h3>
+                        <a href="#">https://math-competition-platform.onrender.com/accounts/login/</a>
+                    </div>
+                    <div class="link-card">
+                        <h3>👥 للطلاب</h3>
+                        <a href="#">https://math-competition-platform.onrender.com/student/login/</a>
+                    </div>
+                    <div class="link-card">
+                        <h3>⚙️ لوحة الإدارة</h3>
+                        <a href="#">https://math-competition-platform.onrender.com/admin/</a>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="warning">
+                <h3>⚠️ ملاحظات مهمة:</h3>
+                <p>• النوم بعد 15 دقيقة من عدم الاستخدام (خطة مجانية)</p>
+                <p>• بطء في البداية بعد النوم (30-60 ثانية)</p>
+                <p>• نفس التطبيق بالضبط - بدون أي تغيير</p>
+                <p>• يمكن ترقية للخطة المدفوعة لإزالة النوم</p>
+            </div>
+        </div>
+        
+        <div class="footer">
+            <h3>✨ تطبيق دائم ومجاني على الإنترنت!</h3>
+            <p>جاهز للاستخدام والمشاركة مع العالم 🚀</p>
+        </div>
+    </div>
+</body>
+</html>
